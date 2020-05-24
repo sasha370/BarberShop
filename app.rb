@@ -8,6 +8,7 @@ get '/' do
 end
 
 get '/about' do
+
 	erb :about
 end
 
@@ -27,6 +28,11 @@ post '/visit' do
   @datetime = params[:datetime]
   @master = params[:master]
   @color = params[:colorpicker]
+# Валидация на заполнение поля с Именем. Если поле пустое, показываем Ошибку и возвращаем на страницу записи
+  if @username  == ''
+  @error = "Введите имя!"
+  return erb :visit
+end
 
   file = File.open('./public/contacts.txt', 'a')
   file.write " Имя: #{@username}, Телефон: #{@phone}, Время: #{@datetime}, Мастер: #{@master}, Цвет покраски: #{@color} \n"
