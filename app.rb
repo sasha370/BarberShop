@@ -53,13 +53,17 @@ post '/visit' do
   }
 # Проверяем наличие  соответвия хеша с ошибками и переданных парметров
 # если Текущий Ключ и параметрах пуст, то мы записываем в переменную Errors значение из массива ошибок и обновляем страницу
-  hash_error.each {|key, value|
-      if params[key] == ''
-        @error = value
-        return erb :visit
-      end
-  }
+#   hash_error.each {|key, value|
+#       if params[key] == ''
+#         @error = value
+#         return erb :visit
+#       end
+#   }
 
+  @error = hash_error.select{|key, | params[key] == ""}.values.join(', ')
+  if @error != ''
+    return erb :visit
+  end
 
 #Если прошли все валидации, то записываем данные в файл
 
