@@ -4,7 +4,7 @@ require 'sinatra/reloader' #Подключаем  GEM для того, чтоб�
 
 # Строница Главная
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
+	erb "Привет"
 end
 
 get '/about' do
@@ -18,6 +18,9 @@ end
 
 get '/login' do
   erb :login
+end
+get '/contacts' do
+  erb :contacts
 end
 
 # Обработчик для событий на странице VIZIT
