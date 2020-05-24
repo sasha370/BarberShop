@@ -1,7 +1,8 @@
 require 'rubygems'
-require 'sinatra'
-require 'sinatra/reloader'
+require 'sinatra' # Подключаем Синатру
+require 'sinatra/reloader' #Подключаем  GEM для того, чтобы постоянно не перезапускать сервер
 
+# Строница Главная
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
 end
@@ -18,6 +19,8 @@ get '/login' do
   erb :login
 end
 
+# Обработчик для событий на странице VIZIT
+# Вытаскиваем из параметров Переменные и записываем их в текстовый файл
 post '/visit' do
   @username = params[:username]
   @phone = params[:phone]
@@ -30,17 +33,18 @@ post '/visit' do
   erb "Спасибо, #{@username}, Ваша заявка принята"
 end
 
+
+# Обработчик событий на странице регистрации
+# Работает только если  в Форме на странице Явно указан метод POST ? который будет передавать эти параметры серверу
+#
 post '/login' do
-  @login = params[:login]
-  @password = params[:password]
-  if @login == 'admin' && @password == '123'
-
-
+  @login = params[ :login]
+  @password = params[ :password]
+  if (@login == 'admin' )&& (@password == '123')
     @message =  'Успешно'
     erb :about
   else
-    erb :login
     @message = 'Неправильный логин или пароль'
-
+    erb :login
   end
 end
