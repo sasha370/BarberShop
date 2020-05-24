@@ -1,3 +1,11 @@
+<!-- То что находится в {} будет выполнено только после загрузки всей странице.
+Именно так нужно вызывать скрипты jquery ЧЕРЕЗ function -->
+<script type="text/javascript">
+    $(function () {
+       $('select[name="colorpicker"]').simplecolorpicker();
+    });
+</script>
+
 <h2>Записаться</h2>
 <p>На этой странице вы сможете записаться к нам в Barber Shop</p>
 
@@ -54,10 +62,7 @@
 </form>
 <br/>
 
-<script type="text/javascript">
-$('select[name="colorpicker"]').simplecolorpicker();
 
-</script>
 <!-- вот так можно подключить любой скрипт на данную страницу
  # = Решетка  присваивается по ID
   А точка присваивается по классу объекта
