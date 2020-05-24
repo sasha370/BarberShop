@@ -26,9 +26,10 @@ post '/visit' do
   @phone = params[:phone]
   @datetime = params[:datetime]
   @master = params[:master]
+  @color = params[:colorpicker]
 
   file = File.open('./public/contacts.txt', 'a')
-  file.write " Имя: #{@username}, Телефон: #{@phone}, Время: #{@datetime}, Мастер: #{@master} \n"
+  file.write " Имя: #{@username}, Телефон: #{@phone}, Время: #{@datetime}, Мастер: #{@master}, Цвет покраски: #{@color} \n"
   file.close
   erb "Спасибо, #{@username}, Ваша заявка принята"
 end
