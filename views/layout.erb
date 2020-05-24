@@ -15,8 +15,8 @@
 
 		<title>Barber Shop</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap -->
-		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,22 +29,20 @@
 		<div class="container">
 
 			<!-- Static navbar -->
-			<nav class="navbar navbar-default" role="navigation">
-			  <div class="navbar-header">
-			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			      <span class="sr-only">Toggle navigation</span>
-			      <span class="icon-bar"></span>
-			      <span class="icon-bar"></span>
-			      <span class="icon-bar"></span>
-			    </button>
-			    <a class="navbar-brand" href="/">Barber Shop</a>
-			  </div>
-			  <div class="navbar-collapse collapse">
-			    <ul class="nav navbar-nav">
-			      <li><a href="/about">О нас</a></li>
-			      <li><a href="/visit">Записаться</a></li>
-			      <li><a href="/contacts">Контакты</a></li>
-			      <li><a href="/login">Регистрация</a></li>
+			<nav class="nav navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand" href="/">Barber Shop</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+
+
+			<div class="nav navbar-nav">
+				<ul class="nav">
+			      <li class="nav-item"><a href="/about" class="nav-link ">О нас</a></li>
+			      <li class="nav-item"><a href="/visit" class="nav-link ">Записаться</a></li>
+			      <li class="nav-item"><a href="/contacts" class="nav-link ">Контакты</a></li>
+			      <li class="nav-item"><a href="/login" class="nav-link ">Регистрация</a></li>
 			    </ul>
 			  </div><!--/.nav-collapse -->
 			</nav>

@@ -60,7 +60,11 @@ post '/visit' do
 #       end
 #   }
 
+
+# Выбираем в  массиве  Params пустые значения, находим им соответсвия в Хеше ошибок и объедеиняем через запятую
+#
   @error = hash_error.select{|key, | params[key] == ""}.values.join(', ')
+# Если Ошибки НЕ пустые, то возвращаем на страницу Заполнения формы
   if @error != ''
     return erb :visit
   end
