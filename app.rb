@@ -28,11 +28,40 @@ post '/visit' do
   @datetime = params[:datetime]
   @master = params[:master]
   @color = params[:colorpicker]
+
 # Валидация на заполнение поля с Именем. Если поле пустое, показываем Ошибку и возвращаем на страницу записи
-  if @username  == ''
-  @error = "Введите имя!"
-  return erb :visit
-end
+#   if @username  == ''
+#   @error = "Введите имя!"
+#   end
+#     if @phone  == ''
+#   @error = "Введите номер телефона!"
+#   end
+#     if @datetime  == ''
+#   @error = "Введите время!"
+#   end
+# Если переменная Error не пустая, то мы показываем ошибку на э
+#   if @error != ''
+#     return erb :visit
+#   end
+
+
+#Валидация с использование HUSH с перечнем ошибок
+  hash_error = {
+      :username => "введите имя",
+      :phone => "введите номер телефона",
+      :datetime => "введите дату и время"
+  }
+# Проверяем наличие  соответвия хеша с ошибками и переданных парметров
+# если Текущий Ключ и параметрах пуст, то мы записываем в переменную Errors значение из массива ошибок и обновляем страницу
+  hash_error.each {|key, value|
+      if params[key] == ''
+        @error = value
+        return erb :visit
+      end
+  }
+
+
+#Если прошли все валидации, то записываем данные в файл
 
   file = File.open('./public/contacts.txt', 'a')
   file.write " Имя: #{@username}, Телефон: #{@phone}, Время: #{@datetime}, Мастер: #{@master}, Цвет покраски: #{@color} \n"
