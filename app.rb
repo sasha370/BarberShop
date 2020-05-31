@@ -1,6 +1,21 @@
 require 'rubygems'
 require 'sinatra' # Подключаем Синатру
 require 'sinatra/reloader' #Подключаем  GEM для того, чтобы постоянно не перезапускать сервер
+require 'sqlite3'  # Подключаем БД
+
+# В перед запуском приложения необходима созжать БД
+configure do
+  @db = SQLite3::Database.new 'barbershop.db' # Созжаем канал связи с файлом
+  # создаем в файле БД "Если она не существует" и задаем ей название и тпи колонок
+  @db.execute 'CREATE TABLE IF NOT EXISTS "users" (
+      "id"        INTEGER  PRIMARY KEY AUTOINCREMENT UNIQUE,
+      "Name"      VARCHAR,
+      "Phone"     VARCHAR,
+      "DateStamp" DATETIME,
+      "Master"    VARCHAR,
+      "Color"     TEXT
+  );'
+end
 
 # Строница Главная
 get '/' do
@@ -95,3 +110,4 @@ post '/login' do
     erb :login
   end
 end
+
