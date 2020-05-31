@@ -33,10 +33,12 @@
   <div class="form-group">
     <label for="exampleFormControlSelect1">Выберете мастера</label>
     <select class="form-control ccc" id="exampleFormControlSelect1" name = "master">
-      <option>Джейми</option>
-      <option>Джонс</option>
-      <option>Клара</option>
-      <option>Василий</option>
+      <!-- Для того чтобы при ошибочном выборе не мбрасывались значения выбора, нужно проптсить
+      сохранение переиенной с подставлением значения selected -->
+      <option<%= @master == 'Джейми' ? 'selected' : '' %>>Джейми</option>
+      <option <%= @master == 'Джонс Избранный' ? 'selected' : '' %>>Джонс Избранный</option>
+      <option <%= @master == ' Клара' ? 'selected' : '' %> >Клара</option>
+      <option <%= @master == 'Василий' ? 'selected' : '' %>>Василий</option>
     </select>
   </div>
   <br/>
