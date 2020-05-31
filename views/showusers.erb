@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Имя</th>
+    <th scope="col">Телефон</th>
+    <th scope="col">Дата и время</th>
+    <th scope="col">Мастер</th>
+    <th scope="col">Цвет</th>
+  </tr>
+  </thead>
+  <tbody>
+<!-- код без = означает, что быдет выполенно, но не выведено на экран
+таким образом мы рпзделяем код Ruby и с помошью цикла выводим каждую строчку в нашу таблицу
+массив @results мы получили из БД в саммой программе"-->
+  <% @results.each do |row| %>
+    <tr>
+      <td><%= row['id'] %></td>
+      <td><%= row['Name'] %></td>
+      <td><%= row['Phone'] %></td>
+      <td><%= row['DateStamp'] %></td>
+      <td><%= row['Master'] %></td>
+      <td><%= row['Color'] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

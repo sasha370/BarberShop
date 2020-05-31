@@ -1,12 +1,13 @@
 require 'rubygems'
 require 'sinatra' # Подключаем Синатру
 require 'sinatra/reloader' #Подключаем  GEM для того, чтобы постоянно не перезапускать сервер
-require 'sqlite3'  # Подключаем БД
+require 'sqlite3' # Подключаем БД
 
 
 #  Метод который открывает путь к БД
 def get_db
   SQLite3::Database.new 'barbershop.db' # Создаем канал связи с файлом
+
 end
 
 
@@ -26,16 +27,16 @@ end
 
 # Строница Главная
 get '/' do
-	erb "Привет"
+  erb "Привет"
 end
 
 get '/about' do
 
-	erb :about
+  erb :about
 end
 
 get '/visit' do
-	erb :visit
+  erb :visit
 end
 
 get '/login' do
@@ -44,6 +45,22 @@ end
 get '/contacts' do
   erb :contacts
 end
+
+get '/showusers' do
+  db = get_db
+  db.results_as_hash = true # делает возврат ответа из БД в виде ХЕША, откуда мы можем достать все ключи по названию Колонок
+
+  # выбрать все из Таблицы USERS сортируя по ID на цбывание
+  # Этот массив мы будем использовать для вывода таблицы в представлении
+  @results = db.execute 'select * from users order by id desc'
+
+  # Таким образом можно выводить в консоль
+  # db.execute 'select * from users' do |row| # ROW в данном случае ХЕШ
+  #   @result =   "#{row['Name']} записался на #{row['DateStamp']}"
+  # end
+  erb :showusers
+end
+
 
 # Обработчик для событий на странице VIZIT
 # Вытаскиваем из параметров Переменные и записываем их в текстовый файл
@@ -88,7 +105,7 @@ post '/visit' do
 
 # Выбираем в  массиве  Params пустые значения, находим им соответсвия в Хеше ошибок и объедеиняем через запятую
 #
-  @error = hash_error.select{|key, | params[key] == ""}.values.join(', ')
+  @error = hash_error.select { |key,| params[key] == "" }.values.join(', ')
 # Если Ошибки НЕ пустые, то возвращаем на страницу Заполнения формы
   if @error != ''
     return erb :visit
@@ -96,7 +113,7 @@ post '/visit' do
 
 # Записываем полученные данные в БД
 #
-  db= get_db
+  db = get_db
   db.execute 'Insert into
  users (name, phone, datestamp, master, color)
 values (?,?,?,?,?) ', [@username, @phone, @datetime, @master, @color]
@@ -113,10 +130,10 @@ end
 # Работает только если  в Форме на странице Явно указан метод POST ? который будет передавать эти параметры серверу
 #
 post '/login' do
-  @login = params[ :login]
-  @password = params[ :password]
-  if (@login == 'admin' )&& (@password == '123')
-    @message =  'Успешно'
+  @login = params[:login]
+  @password = params[:password]
+  if (@login == 'admin') && (@password == '123')
+    @message = 'Успешно'
     erb :about
   else
     @message = 'Неправильный логин или пароль'
