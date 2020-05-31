@@ -40,7 +40,7 @@
 				</button>
 
 
-
+<!--Навигаяция в верхнем меню-->
 			<div class="nav navbar-nav">
 				<ul class="nav">
 			      <li class="nav-item"><a href="/about" class="nav-link ">О нас</a></li>
@@ -52,7 +52,7 @@
 			  </div><!--/.nav-collapse -->
 			</nav>
 
-
+<!--			Показываем ошибку, или если ошибки нет, но переменная была создана ( т.е. имеет длинну больше 0-ля)-->
 			<div>
 				<%if @error && @error.length > 0  %>
 					<div class="alert alert-danger"><%=@error%></div>
