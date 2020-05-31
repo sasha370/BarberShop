@@ -20,7 +20,8 @@
       <td><%= row['Phone'] %></td>
       <td><%= row['DateStamp'] %></td>
       <td><%= row['Master'] %></td>
-      <td><%= row['Color'] %></td>
+<!--      Вывожим в качестве подстветки задний фон с тем же значением-->
+      <td style = 'background-color: <%= row['Color'] %> '><%= row['Color'] %></td>
     </tr>
   <% end %>
   </tbody>

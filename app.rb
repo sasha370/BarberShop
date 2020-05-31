@@ -154,7 +154,7 @@ values (?,?,?,?,?) ', [@username, @phone, @datetime, @master, @color]
 #   file = File.open('./public/contacts.txt', 'a')
 #   file.write " Имя: #{@username}, Телефон: #{@phone}, Время: #{@datetime}, Мастер: #{@master}, Цвет покраски: #{@color} \n"
 #   file.close
-  erb "Спасибо, #{@username}, Ваша заявка принята"
+  erb "<h2> Спасибо, #{@username}, Ваша заявка принята </h2>"
 end
 
 
