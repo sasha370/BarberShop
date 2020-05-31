@@ -17,13 +17,19 @@ end
 
 
 # Метод добавдяет нового Мастера в твблицу, если его там небыло
-#
 def seed_db db, barbers  # на вход получаем имя бвзы и массив введеных имен
   barbers.each do |name|
     if !is_barber_exists? db, name # проверяем есть ли такое имя в таблице
       db.execute 'insert into masters (name) values (?)', [name] # если ответом пришло FALSE то добавляем новую строку
     end
   end
+end
+
+# этот кодд выполнится в самом начале, lzk толго чтобы переменая была видна в любом методе, включая GET и POST
+before do
+  db  = get_db
+  db.results_as_hash = true
+  @masters_results = db.execute 'select * from masters'
 end
 
 # В перед запуском приложения необходима созжать БД
@@ -46,6 +52,7 @@ configure do
       "name" TEXT    UNIQUE
   );'
 
+  # посде создания таблиц инициализируем значения по умолчанию
   seed_db create_db, ['Джейми', 'Нора', 'Джони', 'Лиза']
 end
 
@@ -58,6 +65,7 @@ get '/about' do
   erb :about
 end
 
+# открываем базу данных и выбираем все значения в ХЕШ
 get '/visit' do
   erb :visit
 end
@@ -65,13 +73,14 @@ end
 get '/login' do
   erb :login
 end
+
 get '/contacts' do
   erb :contacts
 end
 
 get '/showusers' do
   db = get_db
-  db.results_as_hash = true # делает возврат ответа из БД в виде ХЕША, откуда мы можем достать все ключи по названию Колонок
+   db.results_as_hash = true # делает возврат ответа из БД в виде ХЕША, откуда мы можем достать все ключи по названию Колонок
 
   # выбрать все из Таблицы USERS сортируя по ID на цбывание
   # Этот массив мы будем использовать для вывода таблицы в представлении
