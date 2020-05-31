@@ -7,9 +7,24 @@ require 'sqlite3' # Подключаем БД
 #  Метод который открывает путь к БД
 def get_db
   SQLite3::Database.new 'barbershop.db' # Создаем канал связи с файлом
-
 end
 
+# метод проверяеь наличие введеного имя в таблице. и если оно есть, mk длинна возвращаемого элемента будет больше 0
+# таким образом провеояем  Существует или нет
+def is_barber_exists? db, name
+  db.execute('select * from masters where name =?', [name]).length > 0
+end
+
+
+# Метод добавдяет нового Мастера в твблицу, если его там небыло
+#
+def seed_db db, barbers  # на вход получаем имя бвзы и массив введеных имен
+  barbers.each do |name|
+    if !is_barber_exists? db, name # проверяем есть ли такое имя в таблице
+      db.execute 'insert into masters (name) values (?)', [name] # если ответом пришло FALSE то добавляем новую строку
+    end
+  end
+end
 
 # В перед запуском приложения необходима созжать БД
 configure do
@@ -23,6 +38,15 @@ configure do
       "Master"    VARCHAR,
       "Color"     TEXT
   );'
+
+  # создаем таблицу с именами мастеров
+  create_db.execute 'CREATE TABLE IF NOT EXISTS  "masters" (
+                          "id"   INTEGER PRIMARY KEY AUTOINCREMENT
+  UNIQUE,
+      "name" TEXT    UNIQUE
+  );'
+
+  seed_db create_db, ['Джейми', 'Нора', 'Джони', 'Лиза']
 end
 
 # Строница Главная
@@ -31,7 +55,6 @@ get '/' do
 end
 
 get '/about' do
-
   erb :about
 end
 
