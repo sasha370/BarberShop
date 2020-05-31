@@ -3,11 +3,18 @@ require 'sinatra' # Подключаем Синатру
 require 'sinatra/reloader' #Подключаем  GEM для того, чтобы постоянно не перезапускать сервер
 require 'sqlite3'  # Подключаем БД
 
+
+#  Метод который открывает путь к БД
+def get_db
+  SQLite3::Database.new 'barbershop.db' # Создаем канал связи с файлом
+end
+
+
 # В перед запуском приложения необходима созжать БД
 configure do
-  @db = SQLite3::Database.new 'barbershop.db' # Созжаем канал связи с файлом
+  create_db = get_db # Делаем новый доступ к  файлу с БД
   # создаем в файле БД "Если она не существует" и задаем ей название и тпи колонок
-  @db.execute 'CREATE TABLE IF NOT EXISTS "users" (
+  create_db.execute 'CREATE TABLE IF NOT EXISTS "users" (
       "id"        INTEGER  PRIMARY KEY AUTOINCREMENT UNIQUE,
       "Name"      VARCHAR,
       "Phone"     VARCHAR,
@@ -87,11 +94,17 @@ post '/visit' do
     return erb :visit
   end
 
-#Если прошли все валидации, то записываем данные в файл
+# Записываем полученные данные в БД
+#
+  db= get_db
+  db.execute 'Insert into
+ users (name, phone, datestamp, master, color)
+values (?,?,?,?,?) ', [@username, @phone, @datetime, @master, @color]
 
-  file = File.open('./public/contacts.txt', 'a')
-  file.write " Имя: #{@username}, Телефон: #{@phone}, Время: #{@datetime}, Мастер: #{@master}, Цвет покраски: #{@color} \n"
-  file.close
+#Если прошли все валидации, то записываем данные в файл (ЛИБО В БД см.ВЫШЕ)
+#   file = File.open('./public/contacts.txt', 'a')
+#   file.write " Имя: #{@username}, Телефон: #{@phone}, Время: #{@datetime}, Мастер: #{@master}, Цвет покраски: #{@color} \n"
+#   file.close
   erb "Спасибо, #{@username}, Ваша заявка принята"
 end
 
